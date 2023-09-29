@@ -108,7 +108,6 @@
         }
     }
 
-    // Sử dụng các lớp đã định nghĩa
     $paperBook = new PaperBook("Sách giấy 1", "Tác giả A", 2021, 1.5);
     $paperBook->showInfo();
 
