@@ -38,8 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function validateComments($comments, &$errors)
     {
         global $is_validate;
-        if (!empty($comments) && strlen($comments) > 255) {
-            $errors['comments'] = "Nội dung không được vượt quá 255 ký tự.";
+        if (empty($comments)) {
+            $errors['comments'] = "Vui lòng điền nội dung phản hồi.";
+            $is_validate = false;
+        } else if (strlen($comments) < 10) {
+            $errors['comments'] = "Nội dung phản hồi phải có ít nhất 10 ký tự.";
+            $is_validate = false;
+        } else if (strlen($comments) > 500) {
+            $errors['comments'] = "Nội dung phản hồi không được vượt quá 500 ký tự.";
+            $is_validate = false;
+        } else if (preg_match("/(từ_cấm_1|từ_cấm_2|từ_cấm_3)/i", $comments)) {
+            $errors['comments'] = "Nội dung phản hồi chứa từ cấm.";
             $is_validate = false;
         }
     }
